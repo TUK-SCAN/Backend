@@ -1,6 +1,7 @@
 package com.tookscan.tookscan.order.domain;
 
 import com.tookscan.tookscan.core.dto.BaseEntity;
+import com.tookscan.tookscan.order.domain.type.ERecoveryOption;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -25,8 +26,6 @@ public class PricePolicy extends BaseEntity {
     /* -------------------------------------------- */
     /* Information Column ------------------------- */
     /* -------------------------------------------- */
-    @Column(name = "recovery_option_price", nullable = false)
-    private String recoveryOptionPrice;
 
     @Column(name = "price_per_page", nullable = false)
     private Integer pricePerPage;
@@ -44,11 +43,17 @@ public class PricePolicy extends BaseEntity {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public PricePolicy(String recoveryOptionPrice, Integer pricePerPage, Integer deliveryPrice, LocalDate startDate, LocalDate endDate) {
-        this.recoveryOptionPrice = recoveryOptionPrice;
+    public PricePolicy(Integer pricePerPage, Integer deliveryPrice, LocalDate startDate, LocalDate endDate) {
         this.pricePerPage = pricePerPage;
         this.deliveryPrice = deliveryPrice;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public int calculatePrice(int pageCount, ERecoveryOption recoveryOption) {
+        int price = 0;
+        price += pricePerPage * pageCount;
+        price += recoveryOption.getPrice();
+        return price;
     }
 }

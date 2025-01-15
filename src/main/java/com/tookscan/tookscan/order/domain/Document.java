@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "documents")
+@Table(name = "documents", indexes = {
+        @Index(name = "idx_document_nam", columnList = "name")
+})
 public class Document extends BaseEntity {
 
     /* -------------------------------------------- */
@@ -34,6 +36,9 @@ public class Document extends BaseEntity {
     @Column(name = "recovery_option", nullable = false)
     private ERecoveryOption recoveryOption;
 
+    @Column(name = "request", length = 100)
+    private String request;
+
     /* -------------------------------------------- */
     /* Many to One Column ------------------------- */
     /* -------------------------------------------- */
@@ -41,19 +46,21 @@ public class Document extends BaseEntity {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pdf_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pdf_id")
     private Pdf pdf;
 
     /* -------------------------------------------- */
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Document(String name, int pageCount, ERecoveryOption recoveryOption, Order order) {
+    public Document(String name, int pageCount, ERecoveryOption recoveryOption, String request, Order order) {
         this.name = name;
         this.pageCount = pageCount;
         this.recoveryOption = recoveryOption;
+        this.request = request;
         this.order = order;
     }
+
 }
 

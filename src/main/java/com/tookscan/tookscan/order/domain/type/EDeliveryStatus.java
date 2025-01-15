@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum EDeliveryStatus {
+    DELIVERY_READY("배송준비"),
     DELIVERY_START("배송시작"),
     DELIVERY_ARRIVAL("터미널도착"),
     DELIVERY_DEPARTURE("터미널출발"),

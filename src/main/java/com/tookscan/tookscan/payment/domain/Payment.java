@@ -2,6 +2,8 @@ package com.tookscan.tookscan.payment.domain;
 
 import com.tookscan.tookscan.core.dto.BaseEntity;
 import com.tookscan.tookscan.order.domain.Order;
+import com.tookscan.tookscan.payment.domain.type.EEasyPaymentProvider;
+import com.tookscan.tookscan.payment.domain.type.EPaymentMethod;
 import com.tookscan.tookscan.payment.domain.type.EPaymentStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -34,7 +36,7 @@ public class Payment extends BaseEntity {
     private String type;
 
     @Column(name = "method")
-    private String method;
+    private EPaymentMethod method;
 
     @Column(name = "total_amount", nullable = false)
     private Integer totalAmount;
@@ -49,7 +51,14 @@ public class Payment extends BaseEntity {
     @Column(name = "approved_at")
     private LocalDateTime approvedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "easy_payment_provider")
+    private EEasyPaymentProvider easyPaymentProvider;
+
+    /* -------------------------------------------- */
+    /* One To One Mapping ------------------------- */
+    /* -------------------------------------------- */
+    @OneToOne(mappedBy = "payment")
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
@@ -57,7 +66,7 @@ public class Payment extends BaseEntity {
     /* Methods ------------------------------------ */
     /* -------------------------------------------- */
     @Builder
-    public Payment(String paymentKey, String type, String method, Integer totalAmount, EPaymentStatus status, LocalDateTime requestedAt, LocalDateTime approvedAt, Order order) {
+    public Payment(String paymentKey, String type, EPaymentMethod method, Integer totalAmount, EPaymentStatus status, LocalDateTime requestedAt, LocalDateTime approvedAt, EEasyPaymentProvider easyPaymentProvider, Order order) {
         this.paymentKey = paymentKey;
         this.type = type;
         this.method = method;
@@ -65,6 +74,7 @@ public class Payment extends BaseEntity {
         this.status = status;
         this.requestedAt = requestedAt;
         this.approvedAt = approvedAt;
+        this.easyPaymentProvider = easyPaymentProvider;
         this.order = order;
     }
 }

@@ -17,16 +17,16 @@ public class Address {
     @Column(name = "address_name", length = 50)
     private String addressName;
 
-    @Column(name = "region_1depth_name", length = 10)
+    @Column(name = "region_1depth_name", length = 50)
     private String region1DepthName;
 
-    @Column(name = "region_2depth_name", length = 10)
+    @Column(name = "region_2depth_name", length = 50)
     private String region2DepthName;
 
-    @Column(name = "region_3depth_name", length = 10)
+    @Column(name = "region_3depth_name", length = 50)
     private String region3DepthName;
 
-    @Column(name = "region_4depth_name", length = 10)
+    @Column(name = "region_4depth_name", length = 50)
     private String region4DepthName;
 
     @Column(name = "address_detail", length = 100)
@@ -60,7 +60,7 @@ public class Address {
     }
 
     public String getFullAddress() {
-        return this.addressName + " " + this.addressDetail;
+        return this.addressName + " " + this.region1DepthName + " " + this.region2DepthName + " " + this.region3DepthName + " " + this.region4DepthName + " " + this.addressDetail;
     }
 
     public void updateAddressName(String addressName) {

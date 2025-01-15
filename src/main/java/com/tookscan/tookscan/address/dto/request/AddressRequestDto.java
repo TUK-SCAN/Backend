@@ -2,6 +2,8 @@ package com.tookscan.tookscan.address.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tookscan.tookscan.address.domain.Address;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,7 +28,6 @@ public record AddressRequestDto(
         String region3DepthName,
 
         @JsonProperty("region_4depth_name")
-        @NotBlank(message = "리/가/동을 입력해주세요.")
         String region4DepthName,
 
         @JsonProperty("address_detail")
@@ -36,10 +37,14 @@ public record AddressRequestDto(
 
         @JsonProperty("latitude")
         @NotNull(message = "위도를 입력해주세요.")
+        @DecimalMin(value = "-90.0", message = "위도는 -90도 이상이어야 합니다.")
+        @DecimalMax(value = "90.0", message = "위도는 90도 이하여야 합니다.")
         Double latitude,
 
         @JsonProperty("longitude")
         @NotNull(message = "경도를 입력해주세요.")
+        @DecimalMin(value = "-180.0", message = "경도는 -180도 이상이어야 합니다.")
+        @DecimalMax(value = "180.0", message = "경도는 180도 이하여야 합니다.")
         Double longitude
 ) {
         public static AddressRequestDto fromEntity(Address address) {

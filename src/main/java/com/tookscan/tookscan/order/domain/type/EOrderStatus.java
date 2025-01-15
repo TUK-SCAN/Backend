@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EOrderStatus {
     APPLY_COMPLETED("신청완료"),
-    COMPANY_ARRIVED("회사도착"),
+    COMPANY_ARRIVED("업체도착"),
     PAYMENT_WAITING("결제대기"),
     PAYMENT_COMPLETED("결제완료"),
     SCAN_WAITING("스캔대기"),
@@ -38,4 +38,22 @@ public enum EOrderStatus {
             default -> throw new CommonException(ErrorCode.INVALID_ENUM_TYPE);
         };
     }
+
+    /**
+     * 사용자에게 표시할 상태로 변환
+     *
+     * @return 사용자에게 표시할 상태 문자열
+     */
+    public EOrderStatus toDisplayString() {
+        return switch (this) {
+            case APPLY_COMPLETED -> APPLY_COMPLETED;
+            case COMPANY_ARRIVED, PAYMENT_WAITING -> COMPANY_ARRIVED;
+            case PAYMENT_COMPLETED -> PAYMENT_COMPLETED;
+            case SCAN_WAITING, SCAN_IN_PROGRESS -> SCAN_IN_PROGRESS;
+            case RECOVERY_IN_PROGRESS, POST_WAITING, ALL_COMPLETED -> ALL_COMPLETED;
+            case CANCEL -> CANCEL;
+            case AS -> AS;
+        };
+    }
 }
+

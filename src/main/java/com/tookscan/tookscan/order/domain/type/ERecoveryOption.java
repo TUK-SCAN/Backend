@@ -6,11 +6,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ERecoveryOption {
-    DISCARD("폐기"),
-    RAW("원본"),
-    SPRING("스프링");
+    DISCARD("폐기", 0),
+    RAW("원본", 2500),
+    SPRING("스프링", 5000);
 
     private final String description;
+    private final int price;
 
     public static ERecoveryOption fromString(String value) {
         return switch (value.toUpperCase()) {

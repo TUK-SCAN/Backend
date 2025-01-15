@@ -18,6 +18,9 @@ public enum ErrorCode {
     NOT_FOUND_TEMPORARY_ACCOUNT(40403, HttpStatus.NOT_FOUND, "존재하지 않는 임시 사용자입니다."),
     NOT_FOUND_RESOURCE(40404, HttpStatus.NOT_FOUND, "해당 리소스가 존재하지 않습니다."),
     NOT_FOUND_TYPE(40404, HttpStatus.NOT_FOUND ,"타입이 존재하지 않습니다." ),
+    NOT_FOUND_ORDER(40405, HttpStatus.NOT_FOUND, "존재하지 않는 주문입니다."),
+    NOT_FOUND_DOCUMENT(40406, HttpStatus.NOT_FOUND, "존재하지 않는 문서입니다."),
+    NOT_FOUND_PRICE_POLICY(40407, HttpStatus.NOT_FOUND, "존재하지 않는 가격 정책입니다."),
 
     // Invalid Argument Error
     MISSING_REQUEST_PARAMETER(40000, HttpStatus.BAD_REQUEST, "필수 요청 파라미터가 누락되었습니다."),
@@ -32,7 +35,8 @@ public enum ErrorCode {
     INVALID_PRINCIPAL_TYPE(40009, HttpStatus.BAD_REQUEST, "Principal Type이 잘못되었습니다."),
     ALREADY_EXIST_RESOURCE(40010, HttpStatus.BAD_REQUEST, "이미 존재하는 리소스입니다."),
     INVALID_ENUM_TYPE(40011, HttpStatus.BAD_REQUEST, "유효하지 않은 Enum 타입입니다."),
-  
+    PAYMENT_INCOMPLETE(40012, HttpStatus.BAD_REQUEST, "결제가 완료되지 않았습니다."),
+
     // SIGN UP Error
     ALREADY_EXIST_ID(40200, HttpStatus.BAD_REQUEST, "이미 존재하는 아이디입니다."),
     ALREADY_EXIST_PHONE_NUMBER(40201, HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다."),
